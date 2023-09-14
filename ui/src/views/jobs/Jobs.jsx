@@ -2,7 +2,7 @@ import React from "react";
 
 import JobTable from "../../components/table/JobTable";
 import { useSelector, useDispatch } from "react-redux";
-import { xhrDelete, xhrPut } from "../../services/xhr";
+import { xhrDelete, xhrGet, xhrPut } from "../../services/xhr";
 import { useHistory } from "react-router-dom";
 import ProcessingTimes from "./ProcessingTimes";
 import { Button, Toast } from "@douyinfe/semi-ui";
@@ -19,6 +19,24 @@ export default function Jobs() {
     try {
       await xhrDelete("/api/jobs", { jobId });
       Toast.success("Job successfully remove");
+      await dispatch.jobs.getJobs();
+    } catch (error) {
+      Toast.error(error);
+    }
+  };
+  const onJobRun = async (jobId) => {
+    try {
+      await xhrGet(`/api/jobs/${jobId}/run`);
+      Toast.success("Job run successfully");
+      await dispatch.jobs.getJobs();
+    } catch (error) {
+      Toast.error(error);
+    }
+  };
+  const onJobClearHistory = async (jobId) => {
+    try {
+      await xhrGet(`/api/jobs/${jobId}/clearHistory`);
+      Toast.success("Job history cleaned");
       await dispatch.jobs.getJobs();
     } catch (error) {
       Toast.error(error);
@@ -57,8 +75,8 @@ export default function Jobs() {
         onJobStatusChanged={onJobStatusChanged}
         onJobInsight={(jobId) => history.push(`/jobs/insights/${jobId}`)}
         onJobEdit={(jobId) => history.push(`/jobs/edit/${jobId}`)}
-        onJobRun={(jobId) => history.push(`/jobs/edit/${jobId}`)}
-        onJobClearHistory={(jobId) => history.push(`/jobs/edit/${jobId}`)}
+        onJobRun={onJobRun}
+        onJobClearHistory={onJobClearHistory}
       />
     </div>
   );
