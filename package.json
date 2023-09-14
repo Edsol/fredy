@@ -4,6 +4,7 @@
   "description": "[F]ind [R]eal [E]states [d]amn eas[y].",
   "scripts": {
     "start": "node index.js",
+    "hot": "node --watch index.js",
     "dev": "yarn && rm -rf ./ui/public/* && vite",
     "ui": "rm -rf ./ui/public/* && vite",
     "prod": "yarn && vite build --emptyOutDir",
