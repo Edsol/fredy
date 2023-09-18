@@ -83,6 +83,7 @@
     "redux-thunk": "2.4.2",
     "restana": "4.9.7",
     "serve-static": "1.15.0",
+    "set-interval-async": "^3.0.3",
     "slack": "11.0.2",
     "string-similarity": "^4.0.4",
     "vite": "4.4.9",
